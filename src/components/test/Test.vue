@@ -1,5 +1,10 @@
 <template>
   <div>
+    <h1 @click="isAnimationShow = !isAnimationShow">测试动画</h1>
+    <transition name="cqc">
+      <Test-Animation v-if="isAnimationShow" />
+    </transition>
+
     <Main-Banner :ml="{...p, ml: '$attrs 传入'}">
       <template #slotName="scoped">
         <div>cqc{{scoped.data}}</div>
@@ -21,7 +26,6 @@
         <div>正在加载中...</div>
       </template>
     </suspense>
-    
   </div>
 </template>
 
@@ -29,6 +33,7 @@
 import Footer from '@/components/test/components/Footer.vue';
 import MainBanner from '@/components/test/components/MainBanner.vue';
 import AsyncComponent from '@/components/asyncComponent/AsyncComponent';
+import TestAnimation from '@/components/test/components/TestAnimation'
 import { defineAsyncComponent } from 'vue';
 
 const VueRefs = defineAsyncComponent(() => import('@/components/vueRefs/VueRefs.vue'))
@@ -38,7 +43,8 @@ export default {
     Footer,
     MainBanner,
     AsyncComponent,
-    VueRefs
+    VueRefs,
+    TestAnimation
   },
 
   provide() {
@@ -49,7 +55,8 @@ export default {
 
   data() {
     return {
-      p: {}
+      p: {},
+      isAnimationShow: true
     }
   },
 
@@ -68,4 +75,20 @@ export default {
   background-color: antiquewhite;
   margin: 20px 0;
 }
+
+.cqc-enter-from,
+.cqc-leave-to {
+  opacity: 0;
+}
+
+.cqc-enter-to,
+.cqc-leave-from {
+  opacity: 1;
+}
+
+.cqc-enter-active,
+.cqc-leave-active {
+  transition: opacity 1s ease;
+}
+
 </style>
