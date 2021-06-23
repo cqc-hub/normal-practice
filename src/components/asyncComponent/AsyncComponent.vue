@@ -48,13 +48,11 @@ const CateGory = defineAsyncComponent(() => {  // 异步组件 import() 方式�
 
     methods: {
       init() {
-        console.log(defineAsyncComponent);
         utils.then(module => {
           const {
             sum 
           } = module
-
-          console.log(sum(6,3));
+          sum(6,3)
         })
       }
     },
