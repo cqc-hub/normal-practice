@@ -1,8 +1,35 @@
 <template>
   <div>
+    <h1>
+      gsap
+    </h1>
+    <Gsap-Js />
+    <hr />
+    <h1>
+      animate.css
+    </h1>
+    <div class="cqc">
+      cqc
+    </div>
+    <transition
+      enter-active-class="animate__animated animate__rubberBand"
+      appear
+    >
+      <div>
+        transition enter-active-class
+      </div>
+    </transition>
+    <hr />
     <h1 @click="isAnimationShow = !isAnimationShow">测试动画</h1>
-    <transition name="cqc">
-      <Test-Animation v-if="isAnimationShow" />
+    <transition appear name="cqc" mode="out-in">
+      <Test-Animation :class="{
+        absoutl: true
+      }" v-if="isAnimationShow" />
+      <div :class="{
+        absoutl: true
+      }" v-else>
+        cqc
+      </div>
     </transition>
 
     <Main-Banner :ml="{...p, ml: '$attrs 传入'}">
@@ -19,7 +46,7 @@
     
     <suspense>
       <template #default>
-        <VueRefs />
+        <VueRefs ref="cqc" />
       </template>
 
       <template #fallback>
@@ -33,7 +60,8 @@
 import Footer from '@/components/test/components/Footer.vue';
 import MainBanner from '@/components/test/components/MainBanner.vue';
 import AsyncComponent from '@/components/asyncComponent/AsyncComponent';
-import TestAnimation from '@/components/test/components/TestAnimation'
+import TestAnimation from '@/components/test/components/TestAnimation';
+import GsapJs from '@/components/animation/GsapJs';
 import { defineAsyncComponent } from 'vue';
 
 const VueRefs = defineAsyncComponent(() => import('@/components/vueRefs/VueRefs.vue'))
@@ -44,7 +72,8 @@ export default {
     MainBanner,
     AsyncComponent,
     VueRefs,
-    TestAnimation
+    TestAnimation,
+    GsapJs
   },
 
   provide() {
@@ -76,19 +105,49 @@ export default {
   margin: 20px 0;
 }
 
+.absoutl {
+  position: absolute;
+}
+
+.cqc {
+  animation: fadeInDown 2s ease infinite;
+}
+
+/* 
+  from -> active -> to
+  开始 -> 持续 -> 结束
+*/
+.cqc-enter-active
+ {
+  animation: bounce .6s ease reverse;
+}
+
+.cqc-leave-active {
+  animation: bounce .5s ease;
+}
+
 .cqc-enter-from,
 .cqc-leave-to {
   opacity: 0;
 }
 
-.cqc-enter-to,
-.cqc-leave-from {
-  opacity: 1;
-}
-
 .cqc-enter-active,
 .cqc-leave-active {
-  transition: opacity 1s ease;
+  transition: opacity .4s ease;
 }
 
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
 </style>
