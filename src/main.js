@@ -3,6 +3,10 @@ import App from './App.vue';
 import "animate.css";
 import plugin from '@/myPlugins/plguinObject.js';
 import router from '@/router';
+import store from '@/store';
+import less from 'less'
+import '@/style/index.less'; 
+
 
 const app = createApp(App)
 
@@ -14,6 +18,8 @@ app.mixin({
   },
 })
 app.use(router);
+app.use(less)
+app.use(store);
 app.use(plugin);
 
 app.mount('#app');

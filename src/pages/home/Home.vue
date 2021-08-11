@@ -11,6 +11,7 @@
     </router-link>
     -
     <router-link to="/home/two">toTwo</router-link>
+    <router-link to="/useStore">vuex 用法实例</router-link>
 
     <router-view />
   </div>
@@ -41,5 +42,10 @@ import { useRouter } from 'vue-router';
 .home {
   width: 100%;
   height: 100%;
+
+  a {
+    display: block;
+  }
 }
+
 </style>

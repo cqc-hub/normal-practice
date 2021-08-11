@@ -38,6 +38,12 @@ const routes = [
   },
 
   {
+    name: 'UseStore',
+    path: '/useStore',
+    component: () => import('@/pages/useVuex/UseVuex')
+  },
+
+  {
     name: 'About', 
     component: About,
     path: '/about/:name/:age/:form'
